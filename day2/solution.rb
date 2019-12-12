@@ -1,8 +1,8 @@
 input = File.read(File.expand_path("input.txt", File.dirname(__FILE__)))
-initial_program = input.split(",").map &:to_i
+initial_program = input.split(",").map(&:to_i)
 
 # TODO: maybe rewrite this as a cute OOP computer?
-def run_program! program, noun, verb
+def run_program!(program, noun, verb)
   program[1] = noun
   program[2] = verb
 
@@ -22,16 +22,17 @@ end
 
 gravity_assist_program = initial_program.dup
 
-run_program! gravity_assist_program, 12, 2
+run_program!(gravity_assist_program, 12, 2)
+# 3931283
 puts gravity_assist_program[0]
 
 # --- Part Two ---
 
-def find_inputs_for_desired_output program, desired_output
-  0.upto 99 do |noun|
-    0.upto 99 do |verb|
+def find_inputs_for_desired_output(program, desired_output)
+  0.upto(99) do |noun|
+    0.upto(99) do |verb|
       current_program = program.dup
-      run_program! current_program, noun, verb
+      run_program!(current_program, noun, verb)
 
       if current_program[0] == desired_output
         # format the noun/verb as an int NNVV
@@ -43,4 +44,5 @@ def find_inputs_for_desired_output program, desired_output
   nil
 end
 
-puts find_inputs_for_desired_output initial_program, 19690720
+# 6979
+puts find_inputs_for_desired_output(initial_program, 19690720)

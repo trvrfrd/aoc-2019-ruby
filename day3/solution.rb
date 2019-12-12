@@ -1,9 +1,9 @@
-input_path = File.expand_path "../input.txt", __FILE__
-input = File.readlines input_path
+input_path = File.expand_path("../input.txt", __FILE__)
+input = File.readlines(input_path)
 
 wire_1_path, wire_2_path = input.map { |str| str.split(",") }
 
-def points_on_wire path
+def points_on_path(path)
   points = [[0, 0]]
 
   path.each do |move|
@@ -18,7 +18,7 @@ def points_on_wire path
   points
 end
 
-def move_point point, direction
+def move_point(point, direction)
   new_point = point.dup
 
   case direction
@@ -31,22 +31,24 @@ def move_point point, direction
   new_point
 end
 
-def manhattan_distance p1, p2
+def manhattan_distance(p1, p2)
   # thanks Wikipedia!
   (p1[0] - p2[0]).abs + (p1[1] - p2[1]).abs
 end
 
-wire_1_points = points_on_wire(wire_1_path)
-wire_2_points = points_on_wire(wire_2_path)
+wire_1_points = points_on_path(wire_1_path)
+wire_2_points = points_on_path(wire_2_path)
 intersecting_points = wire_1_points & wire_2_points
 origin = intersecting_points.shift
 
-puts intersecting_points.map { |p| manhattan_distance origin, p }.min
+# 403
+puts intersecting_points.map { |p| manhattan_distance(origin, p) }.min
 
 # --- Part Two ---
 
-min_distance = intersecting_points.map do |intersection|
+min_distance = intersecting_points.map { |intersection|
   wire_1_points.index(intersection) + wire_2_points.index(intersection)
-end.min
+}.min
 
+# 4158
 puts min_distance
