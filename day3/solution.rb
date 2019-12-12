@@ -36,7 +36,17 @@ def manhattan_distance p1, p2
   (p1[0] - p2[0]).abs + (p1[1] - p2[1]).abs
 end
 
-intersecting_points = points_on_wire(wire_1_path) & points_on_wire(wire_2_path)
+wire_1_points = points_on_wire(wire_1_path)
+wire_2_points = points_on_wire(wire_2_path)
+intersecting_points = wire_1_points & wire_2_points
 origin = intersecting_points.shift
 
 puts intersecting_points.map { |p| manhattan_distance origin, p }.min
+
+# --- Part Two ---
+
+min_distance = intersecting_points.map do |intersection|
+  wire_1_points.index(intersection) + wire_2_points.index(intersection)
+end.min
+
+puts min_distance
