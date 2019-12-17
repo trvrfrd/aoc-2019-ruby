@@ -16,3 +16,16 @@ passwords_meeting_criteria = password_range.select { |password|
 
 # 2081
 puts passwords_meeting_criteria.length
+
+# --- Part Two ---
+def repeated_digits_not_part_of_a_larger_group?(digits)
+  digits.group_by { |d| d }.any? { |_, digits| digits.count == 2 }
+end
+
+passwords_meeting_all_criteria = passwords_meeting_criteria.select { |password|
+  digits = password.digits.reverse
+  repeated_digits_not_part_of_a_larger_group?(digits)
+}
+
+# 1411
+puts passwords_meeting_all_criteria.length
